@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class IdiomHistoryActivity extends AppCompatActivity {
     private SQLiteDatabase mDb;
     private BaseAdapter mBaseAdapter;
     private String mClickDeleteName;
-
+    private PopupWindow mPopupWindow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +103,7 @@ public class IdiomHistoryActivity extends AppCompatActivity {
         idiomListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //popup显示
+                //不做了
 
             }
         });
@@ -117,6 +118,8 @@ public class IdiomHistoryActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     private void delete() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
