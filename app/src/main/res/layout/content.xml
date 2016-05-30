@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/idiomWord"
+            style="@style/contentStyle"
+            android:text="查询的成语"/>
+
+        <TextView
+            android:id="@+id/pinyin"
+            style="@style/contentStyle"
+            android:text="拼音"/>
+
+        <TextView
+            android:id="@+id/jieshi"
+            style="@style/contentStyle"
+            android:text="成语解释"/>
+
+        <TextView
+            android:id="@+id/from"
+            style="@style/contentStyle"
+            android:text="出自"/>
+
+        <TextView
+            android:id="@+id/example"
+            style="@style/contentStyle"
+            android:text="例子"/>
+
+        <TextView
+            android:id="@+id/yinzhengjs"
+            style="@style/contentStyle"
+            android:text="引证解释"/>
+
+        <TextView
+            android:id="@+id/tongyi"
+            style="@style/contentStyle"
+            android:text="同义词"/>
+
+        <TextView
+            android:id="@+id/fanyi"
+            style="@style/contentStyle"
+            android:text="反义词"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>
