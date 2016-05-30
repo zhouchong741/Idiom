@@ -1,7 +1,11 @@
 package com.zc741.idiom;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -20,7 +24,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -53,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
     TextView tongyi;
     @ViewInject(R.id.fanyi)
     TextView fanyi;
+    private int mErrorCode;
+    private SQLiteDatabase mDb;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +68,9 @@ public class MainActivity extends AppCompatActivity {
         x.Ext.init(getApplication());
         x.view().inject(this);
 
+        //数据库初始化
+        MySQLiteOpenHelper helper = new MySQLiteOpenHelper(this, "idiom_db");
+        mDb = helper.getWritableDatabase();
 
         //ToolBar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -77,11 +86,10 @@ public class MainActivity extends AppCompatActivity {
                         searchPopup();
                         break;
                     case R.id.more:
-                        Toast.makeText(MainActivity.this, "more", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(MainActivity.this, IdiomHistoryActivity.class));
                         break;
                 }
                 return true;
-
             }
         });
     }
@@ -141,13 +149,13 @@ public class MainActivity extends AppCompatActivity {
         //1.拿到EditText的字符
         mSearchWord = mEdit_search.getText().toString();
         //System.out.println("searchWord= " + searchWord);
+        //String searchUrl = "http://apicloud.mob.com/appstore/idiom/query?key=134be95d20386&name=" + mSearchWord;
         String searchUrl = "http://v.juhe.cn/chengyu/query?key=330a5f17944e67eed98c4cab4e050edc&word=" + mSearchWord;
         RequestParams params = new RequestParams(searchUrl);
         x.http().get(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 String content = result;
-                System.out.println("conent = " + content);
                 parseJson(content);
             }
 
@@ -192,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
         Idiom idiom = gson.fromJson(content, Idiom.class);
 
         //返回码
-        int errorCode = idiom.getError_code();
+        mErrorCode = idiom.getError_code();
         //拼音
         String pinyinRes = idiom.getResult().getPinyin().trim();
         //解释
@@ -223,8 +231,34 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void saveToSQL() {
-        
+        //判断 1.只有返回码是0的时候才保存到数据库
+        if (mErrorCode == 0) {
+            checkExists();
+        } else {
+            System.out.println("错误 不保存");
+        }
     }
 
+    private void checkExists() {
+        String existsSql = "select searchWord from idiom where searchWord = " + "\"" + mSearchWord + "\"";
+        Cursor cursor = mDb.rawQuery(existsSql,null);
+        cursor.moveToFirst();
+        int numbers = cursor.getCount();
+        if (numbers != 0){
+            System.out.println("查询记录已经存在，可以直接查看历史纪录");
+        }else {
+            System.out.println("插入数据库");
+            add();
+        }
+    }
+    private void add() {
+        //检出数据库是否已经存在
+        String searchWord = "searchWord";
+        String sqlName = "idiom";
+        ContentValues values = new ContentValues();
+        values.put(searchWord, mSearchWord);
+        mDb.insert(sqlName, null, values);
+        //select();
+    }
 
 }
