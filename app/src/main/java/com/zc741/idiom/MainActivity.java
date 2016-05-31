@@ -101,7 +101,6 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         getData();
                         dialog.dismiss();
-
                     }
                 });
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -110,8 +109,6 @@ public class MainActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-
-
                 builder.create().show();
 
                 //延时操作 等dialog中的EditText初始化好
@@ -208,6 +205,7 @@ public class MainActivity extends AppCompatActivity {
         //同义词 反义词 长按可复制
         tongyi.setTextIsSelectable(true);
         fanyi.setTextIsSelectable(true);
+
 
         //保存到数据库
         saveToSQL();

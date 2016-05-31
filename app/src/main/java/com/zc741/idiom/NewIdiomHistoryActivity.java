@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,6 @@ public class NewIdiomHistoryActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-
         MyAdapter myAdapter = new MyAdapter(mList);
         recyclerView.setAdapter(myAdapter);
 
@@ -86,7 +86,9 @@ public class NewIdiomHistoryActivity extends AppCompatActivity {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    System.out.println("position = " + position);
+                    //System.out.println("position = " + position);
+                    String word = holder.mIdiom_word.getText().toString();
+                    Toast.makeText(NewIdiomHistoryActivity.this, word,Toast.LENGTH_SHORT).show();
                 }
             });
 

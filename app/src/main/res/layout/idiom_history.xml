@@ -18,6 +18,7 @@
             android:id="@+id/idiom_word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/idiom_text_bg"
             android:padding="8dp"
             android:singleLine="true"
             android:textSize="16sp"/>
