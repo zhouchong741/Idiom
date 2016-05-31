@@ -7,25 +7,20 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.melnykov.fab.FloatingActionButton;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -33,11 +28,11 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText mEdit_search;
-    private PopupWindow mPopupWindow;
     private String mSearchWord;
 
     @ViewInject(R.id.idiomWord)
@@ -58,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
     TextView fanyi;
     private int mErrorCode;
     private SQLiteDatabase mDb;
-
+    private EditText mIdiom_edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,20 +77,59 @@ public class MainActivity extends AppCompatActivity {
             public boolean onMenuItemClick(MenuItem item) {
 
                 switch (item.getItemId()) {
-                    case R.id.search:
-                        searchPopup();
-                        break;
                     case R.id.more:
-                        startActivity(new Intent(MainActivity.this, IdiomHistoryActivity.class));
+                        startActivity(new Intent(MainActivity.this, NewIdiomHistoryActivity.class));
                         break;
                 }
                 return true;
             }
         });
+
+        FloatingActionButton add_search = (FloatingActionButton) findViewById(R.id.fab_add);
+        assert add_search != null;
+        add_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setTitle("查询成语");
+                View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.search_idiom_edit, null);
+                mIdiom_edit = (EditText) view.findViewById(R.id.dialog_editText);
+                builder.setView(view);
+
+                builder.setPositiveButton("搜索", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getData();
+                        dialog.dismiss();
+
+                    }
+                });
+                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+                builder.create().show();
+
+                //延时操作 等dialog中的EditText初始化好
+                Timer timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        mIdiom_edit.setFocusable(true);
+                        mIdiom_edit.setFocusableInTouchMode(true);
+                        mIdiom_edit.requestFocus();
+                        InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputMethodManager.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+                    }
+                }, 100);
+            }
+        });
     }
 
-    private void searchPopup() {
-        LayoutInflater inflater = LayoutInflater.from(this);
+
+        /*LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.search_popue, null);
         mPopupWindow = new PopupWindow(view, ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT, true);
 
@@ -132,27 +166,28 @@ public class MainActivity extends AppCompatActivity {
                 }
                 return false;
             }
-        });
-    }
+        });*/
+
 
     //EditText的返回和查询
     public void arrow_back(View view) {
-        mPopupWindow.dismiss();
+        //mPopupWindow.dismiss();
     }
 
     public void search(View view) {
         //getData
-        getData();
+        //getData();
     }
 
     private void getData() {
         //1.拿到EditText的字符
-        mSearchWord = mEdit_search.getText().toString();
+        mSearchWord = mIdiom_edit.getText().toString();
         //System.out.println("searchWord= " + searchWord);
         //String searchUrl = "http://apicloud.mob.com/appstore/idiom/query?key=134be95d20386&name=" + mSearchWord;
         String searchUrl = "http://v.juhe.cn/chengyu/query?key=330a5f17944e67eed98c4cab4e050edc&word=" + mSearchWord;
         RequestParams params = new RequestParams(searchUrl);
         x.http().get(params, new Callback.CommonCallback<String>() {
+
             @Override
             public void onSuccess(String result) {
                 String content = result;
@@ -162,15 +197,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 System.out.println("error = " + ex);
+                Toast.makeText(MainActivity.this, "找不到相关成语", Toast.LENGTH_LONG).show();
+
                 //弹出对话框提示查不到该成语相关信息
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                /*AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("错误");
                 builder.setMessage("查询不到该成语的相关信息,要重新查询吗？");
                 builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
-                        searchPopup();
                     }
                 });
                 builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -179,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
-                builder.create().show();
+                builder.create().show();*/
             }
 
             @Override
@@ -190,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFinished() {
                 //请求结束 搜索框消失
-                mPopupWindow.dismiss();
+                //mPopupWindow.dismiss();
             }
         });
     }
@@ -226,6 +262,10 @@ public class MainActivity extends AppCompatActivity {
         tongyi.setText("同义词：" + toongyiRes + "");
         fanyi.setText("反义词：" + fanyiRes + "");
 
+        //同义词 反义词 长按可复制
+        tongyi.setTextIsSelectable(true);
+        fanyi.setTextIsSelectable(true);
+
         //保存到数据库
         saveToSQL();
     }
@@ -241,16 +281,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void checkExists() {
         String existsSql = "select searchWord from idiom where searchWord = " + "\"" + mSearchWord + "\"";
-        Cursor cursor = mDb.rawQuery(existsSql,null);
+        Cursor cursor = mDb.rawQuery(existsSql, null);
         cursor.moveToFirst();
         int numbers = cursor.getCount();
-        if (numbers != 0){
+        if (numbers != 0) {
             System.out.println("查询记录已经存在，可以直接查看历史纪录");
-        }else {
+        } else {
             System.out.println("插入数据库");
             add();
         }
     }
+
     private void add() {
         //检出数据库是否已经存在
         String searchWord = "searchWord";

@@ -20,6 +20,6 @@ public class SearchWord {
 
     @Override
     public String toString() {
-        return "searchWord=" + searchWord;
+        return searchWord;
     }
 }

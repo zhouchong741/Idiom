@@ -27,4 +27,15 @@
 
     </android.support.v4.widget.NestedScrollView>
 
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:src="@mipmap/ic_circle"
+        app:fab_colorNormal="@color/colorAccent"
+        app:fab_colorPressed="@color/colorAccent"
+        app:fab_colorRipple="@color/colorPrimary"/>
+
 </android.support.design.widget.CoordinatorLayout>

@@ -19,19 +19,13 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <ListView
-            android:id="@+id/idiomListView"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="#FFF">
+            android:divider="#FFF"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        </ListView>
-    </LinearLayout>
+        </android.support.v7.widget.RecyclerView>
 
 </android.support.design.widget.CoordinatorLayout>
