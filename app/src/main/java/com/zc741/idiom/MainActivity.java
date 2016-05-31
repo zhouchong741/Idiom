@@ -110,6 +110,8 @@ public class MainActivity extends AppCompatActivity {
                         dialog.dismiss();
                     }
                 });
+
+
                 builder.create().show();
 
                 //延时操作 等dialog中的EditText初始化好
@@ -127,47 +129,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
-        /*LayoutInflater inflater = LayoutInflater.from(this);
-        View view = inflater.inflate(R.layout.search_popue, null);
-        mPopupWindow = new PopupWindow(view, ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT, true);
-
-        mPopupWindow.setBackgroundDrawable(new BitmapDrawable());
-        mPopupWindow.setOutsideTouchable(true);
-        WindowManager.LayoutParams params = getWindow().getAttributes();//创建当前界面的一个参数对象
-        params.alpha = 0.8f;
-        getWindow().setAttributes(params);//把该参数对象设置进当前界面中
-        mPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
-            @Override
-            public void onDismiss() {
-                WindowManager.LayoutParams params = getWindow().getAttributes();
-                params.alpha = 1.0f;//设置为不透明，即恢复原来的界面
-                getWindow().setAttributes(params);
-            }
-        });
-
-        //第一个参数为父View对象，即PopupWindow所在的父控件对象，第二个参数为它的重心，后面两个分别为x轴和y轴的偏移量
-        mPopupWindow.showAtLocation(inflater.inflate(R.layout.activity_main, null), Gravity.TOP, 0, 0);
-
-        //键盘弹出
-        mEdit_search = (EditText) view.findViewById(R.id.edit_search);
-        mEdit_search.setFocusable(true);
-        mEdit_search.requestFocus();
-        InputMethodManager inputMethodManager = (InputMethodManager) mEdit_search.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
-
-
-        mEdit_search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    getData();
-                }
-                return false;
-            }
-        });*/
-
 
     //EditText的返回和查询
     public void arrow_back(View view) {
@@ -198,24 +159,6 @@ public class MainActivity extends AppCompatActivity {
             public void onError(Throwable ex, boolean isOnCallback) {
                 System.out.println("error = " + ex);
                 Toast.makeText(MainActivity.this, "找不到相关成语", Toast.LENGTH_LONG).show();
-
-                //弹出对话框提示查不到该成语相关信息
-                /*AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
-                builder.setTitle("错误");
-                builder.setMessage("查询不到该成语的相关信息,要重新查询吗？");
-                builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.create().show();*/
             }
 
             @Override

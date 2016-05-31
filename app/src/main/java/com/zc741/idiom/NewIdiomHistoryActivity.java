@@ -1,5 +1,8 @@
 package com.zc741.idiom;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -113,7 +116,6 @@ public class NewIdiomHistoryActivity extends AppCompatActivity {
                                 SearchWord searchWord = new SearchWord(name);
                                 mList.add(searchWord);
                             }
-
                         }
                     });
                     builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
@@ -122,8 +124,15 @@ public class NewIdiomHistoryActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     });
+                    builder.setNeutralButton("复制", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            ClipData clipData = ClipData.newPlainText("Label",mDeleteName);//
+                            cmb.setPrimaryClip(clipData);
+                        }
+                    });
                     builder.create().show();
-
                     return true;
                 }
             });
