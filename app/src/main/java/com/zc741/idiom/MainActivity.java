@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         add_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setTitle("查询成语");
                 View view = LayoutInflater.from(MainActivity.this).inflate(R.layout.search_idiom_edit, null);
                 mIdiom_edit = (EditText) view.findViewById(R.id.dialog_editText);
@@ -123,6 +123,19 @@ public class MainActivity extends AppCompatActivity {
                         inputMethodManager.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
                     }
                 }, 100);
+
+                //键盘enter为search实现搜索功能
+                //TODO 解决这个bug
+                /*mIdiom_edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                    @Override
+                    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                        if (actionId == EditorInfo.IME_ACTION_DONE) {
+                            getData();
+
+                        }
+                        return false;
+                    }
+                });*/
             }
         });
     }

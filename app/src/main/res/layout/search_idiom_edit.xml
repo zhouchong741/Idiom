@@ -18,6 +18,7 @@
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:hint="成语"
+            android:imeOptions="actionDone"
             android:singleLine="true"/>
     </android.support.design.widget.TextInputLayout>
 
