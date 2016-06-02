@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@mipmap/ic_circle"
+        android:src="@mipmap/ic_search_white_18dp"
         app:fab_colorNormal="@color/colorAccent"
         app:fab_colorPressed="@color/colorAccent"
         app:fab_colorRipple="@color/colorPrimary"/>

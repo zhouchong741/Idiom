@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,12 +85,13 @@ public class NewIdiomHistoryActivity extends AppCompatActivity {
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //System.out.println("position = " + position);
+                    System.out.println("position = " + position);
                     String word = holder.mIdiom_word.getText().toString();
-                    Toast.makeText(NewIdiomHistoryActivity.this, word,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(NewIdiomHistoryActivity.this, word,Toast.LENGTH_SHORT).show();
                 }
             });
 
+            //长按删除
             holder.mIdiom_word.setOnLongClickListener(new View.OnLongClickListener() {
 
                 private int mPos;
@@ -130,7 +130,7 @@ public class NewIdiomHistoryActivity extends AppCompatActivity {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                            ClipData clipData = ClipData.newPlainText("Label",mDeleteName);//
+                            ClipData clipData = ClipData.newPlainText("Label", mDeleteName);//
                             cmb.setPrimaryClip(clipData);
                         }
                     });

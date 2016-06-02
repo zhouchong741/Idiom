@@ -140,16 +140,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //EditText的返回和查询
-    public void arrow_back(View view) {
-        //mPopupWindow.dismiss();
-    }
-
-    public void search(View view) {
-        //getData
-        //getData();
-    }
-
     private void getData() {
         //1.拿到EditText的字符
         mSearchWord = mIdiom_edit.getText().toString();
