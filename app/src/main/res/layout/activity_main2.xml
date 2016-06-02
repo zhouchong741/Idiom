@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.zc741.idiom.Main2Activity">
+<android.support.design.widget.AppBarLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.Toolbar>
+</android.support.design.widget.AppBarLayout>
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/pinyin1"
+                style="@style/contentStyle"
+                android:text="拼音"/>
+
+            <TextView
+                android:id="@+id/jieshi1"
+                style="@style/contentStyle"
+                android:text="成语解释"/>
+
+            <TextView
+                android:id="@+id/from1"
+                style="@style/contentStyle"
+                android:text="出自"/>
+
+            <TextView
+                android:id="@+id/example1"
+                style="@style/contentStyle"
+                android:text="例子"/>
+
+            <TextView
+                android:id="@+id/yinzhengjs1"
+                style="@style/contentStyle"
+                android:text="引证解释"/>
+
+            <TextView
+                android:id="@+id/tongyi1"
+                style="@style/contentStyle"
+                android:text="同义词"/>
+
+            <TextView
+                android:id="@+id/fanyi1"
+                style="@style/contentStyle"
+                android:text="反义词"/>
+
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+</android.support.design.widget.CoordinatorLayout>

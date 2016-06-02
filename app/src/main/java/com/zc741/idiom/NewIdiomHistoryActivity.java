@@ -1,9 +1,7 @@
 package com.zc741.idiom;
 
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -87,7 +85,7 @@ public class NewIdiomHistoryActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     System.out.println("position = " + position);
                     String word = holder.mIdiom_word.getText().toString();
-                    //Toast.makeText(NewIdiomHistoryActivity.this, word,Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(getApplication(), Main2Activity.class));
                 }
             });
 
@@ -126,12 +124,15 @@ public class NewIdiomHistoryActivity extends AppCompatActivity {
                             dialog.dismiss();
                         }
                     });
-                    builder.setNeutralButton("复制", new DialogInterface.OnClickListener() {
+                    builder.setNeutralButton("查询", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                            /*ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                             ClipData clipData = ClipData.newPlainText("Label", mDeleteName);//
-                            cmb.setPrimaryClip(clipData);
+                            cmb.setPrimaryClip(clipData);*/
+                            Intent intent = new Intent(NewIdiomHistoryActivity.this, Main2Activity.class);
+                            intent.putExtra("idiomWord",mDeleteName);
+                            startActivity(intent);
                         }
                     });
                     builder.create().show();
