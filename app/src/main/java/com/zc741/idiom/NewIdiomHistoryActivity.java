@@ -21,7 +21,6 @@ import java.util.List;
 public class NewIdiomHistoryActivity extends AppCompatActivity {
     private List<SearchWord> mList;
     private SQLiteDatabase mDb;
-
     private String mDeleteName;
 
     @Override
@@ -132,7 +131,7 @@ public class NewIdiomHistoryActivity extends AppCompatActivity {
                             ClipData clipData = ClipData.newPlainText("Label", mDeleteName);//
                             cmb.setPrimaryClip(clipData);*///复制到剪切板
                             Intent intent = new Intent(NewIdiomHistoryActivity.this, Main2Activity.class);
-                            intent.putExtra("idiomWord",mDeleteName);
+                            intent.putExtra("idiomWord", mDeleteName);
                             startActivity(intent);
                         }
                     });

@@ -125,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 }, 100);
 
                 //键盘enter为search实现搜索功能
-                //TODO 解决这个bug
+                //
                 /*mIdiom_edit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

@@ -56,7 +56,6 @@ public class Main2Activity extends AppCompatActivity {
 
         //
         initIdiom();
-
     }
 
     private void initIdiom() {
