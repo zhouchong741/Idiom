@@ -114,6 +114,4 @@ public class Main2Activity extends AppCompatActivity {
         mTongyi1.setText("同义词：" + toongyiRes + "");
         mFanyi1.setText("反义词：" + fanyiRes + "");
     }
-
-
 }

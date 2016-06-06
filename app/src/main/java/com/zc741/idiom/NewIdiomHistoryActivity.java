@@ -80,14 +80,15 @@ public class NewIdiomHistoryActivity extends AppCompatActivity {
             holder.mIdiom_word.setLayoutParams(lp);
             holder.mIdiom_word.setText(mList.get(position).toString());
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
+            //点击操作会 时有时无
+            /*holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     System.out.println("position = " + position);
                     String word = holder.mIdiom_word.getText().toString();
                     startActivity(new Intent(getApplication(), Main2Activity.class));
                 }
-            });
+            });*/
 
             //长按删除
             holder.mIdiom_word.setOnLongClickListener(new View.OnLongClickListener() {
@@ -129,7 +130,7 @@ public class NewIdiomHistoryActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int which) {
                             /*ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                             ClipData clipData = ClipData.newPlainText("Label", mDeleteName);//
-                            cmb.setPrimaryClip(clipData);*/
+                            cmb.setPrimaryClip(clipData);*///复制到剪切板
                             Intent intent = new Intent(NewIdiomHistoryActivity.this, Main2Activity.class);
                             intent.putExtra("idiomWord",mDeleteName);
                             startActivity(intent);
@@ -175,6 +176,4 @@ public class NewIdiomHistoryActivity extends AppCompatActivity {
     private void deleteIdiom() {
         mDb.delete("idiom", "searchWord=?", new String[]{mDeleteName});
     }
-
-
 }
